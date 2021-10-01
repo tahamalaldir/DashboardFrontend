@@ -1,14 +1,11 @@
 <template>
-  <div
-    class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark side-fixed"
-  >
+  <div class="d-flex flex-column flex-shrink-0 p-3 bg-dark side-fixed">
     <ul class="nav nav-pills flex-column mb-auto">
       <li class="nav-item">
         <router-link
           to="/dashboard"
           class="nav-link text-white"
-          active-class="active"
-          aria-current="page"
+          active-class="bg-secondary"
         >
           <i class="fas fa-home mr-2"></i>
           Dashboard
@@ -17,7 +14,7 @@
       <li class="nav-item">
         <router-link
           to="/kullanicilar"
-          active-class="active"
+          active-class="bg-secondary"
           class="nav-link text-white"
           aria-current="page"
         >
@@ -28,7 +25,7 @@
       <li>
         <router-link
           to="/urunler"
-          active-class="active"
+          active-class="bg-secondary"
           class="nav-link text-white"
         >
           <i class="fas fa-users mr-2"></i>
@@ -38,7 +35,7 @@
       <li>
         <router-link
           to="/satislar"
-          active-class="active"
+          active-class="bg-secondary"
           class="nav-link text-white"
         >
           <i class="fas fa-users mr-2"></i>
@@ -48,7 +45,7 @@
       <li>
         <router-link
           to="/musteriler"
-          active-class="active"
+          active-class="bg-secondary"
           class="nav-link text-white"
         >
           <i class="fas fa-users mr-2"></i>
@@ -66,7 +63,7 @@ export default {
 };
 </script>
 <style>
-.active {
+.side-active {
   background-color: blue;
   color: brown;
 }
