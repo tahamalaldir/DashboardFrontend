@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div class="row">
       <side-nav></side-nav>
-      <router-view class="p-1 offset-2" />
+      <router-view class="p-0 offset-2" />
     </div>
   </div>
 </template>
