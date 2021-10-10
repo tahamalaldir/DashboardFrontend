@@ -18,6 +18,14 @@
         </v-list-item-content>
       </v-list-item>
     </v-list>
+    <v-spacer></v-spacer>
+    <template v-slot:append>
+      <div class="pa-2">
+        <v-btn outlined block
+          ><v-icon left>mdi-logout-variant </v-icon> Logout
+        </v-btn>
+      </div>
+    </template>
   </v-navigation-drawer>
 </template>
 <script>
@@ -27,10 +35,18 @@ export default {
       drawer: true,
       items: [
         { title: "Dashboard", icon: "mdi-view-dashboard", link: "/dashboard" },
-        { title: "Kullanıcılar", icon: "", link: "/kullanicilar" },
-        { title: "Ürünler", icon: "", link: "/urunler" },
-        { title: "Satışlar", icon: "", link: "/satislar" },
-        { title: "Müşteriler", icon: "", link: "/musteriler" },
+        {
+          title: "Kullanıcılar",
+          icon: "mdi-account-group",
+          link: "/kullanicilar",
+        },
+        { title: "Ürünler", icon: "mdi-shopping", link: "/urunler" },
+        { title: "Satışlar", icon: "mdi-cash-multiple", link: "/satislar" },
+        {
+          title: "Müşteriler",
+          icon: "mdi-account-cash",
+          link: "/musteriler",
+        },
       ],
     };
   },
