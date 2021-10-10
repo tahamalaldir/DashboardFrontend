@@ -48,6 +48,22 @@ const routes = [
       layout: "DefaultLayout",
     },
   },
+  {
+    path: "/login",
+    name: "Login",
+    component: () => import("@/components/Login/Login.vue"),
+    meta: {
+      layout: "AuthLayout",
+    },
+  },
+  {
+    path: "/register",
+    name: "Register",
+    component: () => import("@/components/Register/Register.vue"),
+    meta: {
+      layout: "AuthLayout",
+    },
+  },
 ];
 
 const router = new VueRouter({
