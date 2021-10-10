@@ -2,7 +2,7 @@
   <v-app>
     <side-nav />
     <app-bar />
-    <v-main class="grey lighten-2">
+    <v-main>
       <v-container fluid>
         <router-view></router-view>
       </v-container>
