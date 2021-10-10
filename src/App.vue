@@ -1,24 +1,17 @@
 <template>
-  <v-app>
-    <side-nav />
-    <app-bar />
-    <v-main class="grey lighten-2">
-      <v-container fluid>
-        <router-view></router-view>
-      </v-container>
-    </v-main>
-  </v-app>
+  <component :is="layout"></component>
 </template>
 
 <script>
-import SideNav from "@/components/Shared/SideNav.vue";
-import AppBar from "@/components/Shared/AppBar.vue";
+import DefaultLayout from "@/layouts/DefaultLayout.vue";
 export default {
-  components: { SideNav, AppBar },
+  components: { DefaultLayout },
   name: "App",
-
-  data: () => ({
-    //
-  }),
+  computed: {
+    layout() {
+      const layout = this.$route.meta.layout || DefaultLayout;
+      return () => import(`@/layouts/${layout}.vue`);
+    },
+  },
 };
 </script>
