@@ -1,15 +1,13 @@
 <template>
-  <v-row> <h1>Dashboard</h1> </v-row>
+  <v-row>
+    <istatistikler />
+  </v-row>
 </template>
 
 <script>
+import istatistikler from "./İstatistikler.vue";
 export default {
   name: "Dashboard",
-  components: {},
-  data() {
-    return {
-      ciro: "456465",
-    };
-  },
+  components: { istatistikler },
 };
 </script>
