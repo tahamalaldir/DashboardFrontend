@@ -1,8 +1,7 @@
 <template>
-  <div class="col">
-    <fix-nav title="Kullanıcılar" />
+  <v-row>
     <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis gravida
+      s Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis gravida
       risus ac mi rhoncus pharetra. Integer placerat felis augue, sit amet
       mollis augue euismod ac. Vestibulum quis ligula nibh. Quisque quis
       eleifend ipsum. Ut mauris metus, faucibus a placerat sed, aliquam ut
@@ -318,13 +317,12 @@
       nisl. Fusce nibh eros, feugiat eget turpis vel, interdum facilisis tellus.
       Aenean pretium nibh odio, sed egestas justo ultrices in.
     </p>
-  </div>
+  </v-row>
 </template>
 
 <script>
-import FixNav from "../Shared/FixNav.vue";
 export default {
-  components: { FixNav },
-  name: "Home",
+  components: {},
+  name: "Kullanicilar",
 };
 </script>
