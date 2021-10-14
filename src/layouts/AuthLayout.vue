@@ -1,8 +1,9 @@
 <template>
   <v-app>
     <v-main>
-      <h1>Auth Layout</h1>
-      <router-view></router-view>
+      <v-container>
+        <router-view></router-view>
+      </v-container>
     </v-main>
   </v-app>
 </template>

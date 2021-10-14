@@ -13,5 +13,8 @@ export default {
       return () => import(`@/layouts/${layout}.vue`);
     },
   },
+  created() {
+    this.$store.dispatch("initAuth");
+  },
 };
 </script>

@@ -1,5 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import store from "../store/index";
 
 Vue.use(VueRouter);
 
@@ -15,35 +16,92 @@ const routes = [
     meta: {
       layout: "DefaultLayout",
     },
-  },
-  {
-    path: "/kullanicilar",
-    name: "Kullanicilar",
-    component: () => import("@/components/Kullanicilar/Kullanicilar.vue"),
-    meta: {
-      layout: "DefaultLayout",
+    beforeEnter(to, from, next) {
+      if (store.getters.isAuthenticated) {
+        next();
+      } else {
+        next("/login");
+      }
     },
   },
   {
+    path: "/kullanicilar",
+    component: () => import("@/components/Kullanicilar/Index.vue"),
+    beforeEnter(to, from, next) {
+      if (store.getters.isAuthenticated) {
+        next();
+      } else {
+        next("/login");
+      }
+    },
+    children: [
+      {
+        path: "",
+        name: "Kullanıcılar",
+        component: () => import("@/components/Kullanicilar/Kullanicilar.vue"),
+        meta: {
+          layout: "DefaultLayout",
+        },
+      },
+      {
+        path: "yenikullanici",
+        name: "Kullanıcılar / Yeni Kullanıcı",
+        component: () => import("@/components/Kullanicilar/YeniKullanici.vue"),
+        meta: {
+          layout: "DefaultLayout",
+        },
+      },
+      {
+        path: "kullanicidetay/:userId",
+        name: "Kullanıcılar / Kullanıcı Detay",
+        component: () => import("@/components/Kullanicilar/YeniKullanici.vue"),
+        meta: {
+          layout: "DefaultLayout",
+        },
+      },
+    ],
+  },
+  {
     path: "/urunler",
-    name: "Urunler",
+    name: "Ürünler",
     component: () => import("@/components/Urunler/Urunler.vue"),
+    beforeEnter(to, from, next) {
+      if (store.getters.isAuthenticated) {
+        next();
+      } else {
+        next("/login");
+      }
+    },
     meta: {
       layout: "DefaultLayout",
     },
   },
   {
     path: "/satislar",
-    name: "Satislar",
+    name: "Satışlar",
     component: () => import("@/components/Satislar/Satislar.vue"),
+    beforeEnter(to, from, next) {
+      if (store.getters.isAuthenticated) {
+        next();
+      } else {
+        next("/login");
+      }
+    },
     meta: {
       layout: "DefaultLayout",
     },
   },
   {
     path: "/musteriler",
-    name: "Musteriler",
+    name: "Müşteriler",
     component: () => import("@/components/Musteriler/Musteriler.vue"),
+    beforeEnter(to, from, next) {
+      if (store.getters.isAuthenticated) {
+        next();
+      } else {
+        next("/login");
+      }
+    },
     meta: {
       layout: "DefaultLayout",
     },
@@ -52,6 +110,13 @@ const routes = [
     path: "/login",
     name: "Login",
     component: () => import("@/components/Login/Login.vue"),
+    beforeEnter(to, from, next) {
+      if (!store.getters.isAuthenticated) {
+        next();
+      } else {
+        next("/");
+      }
+    },
     meta: {
       layout: "AuthLayout",
     },
@@ -60,6 +125,13 @@ const routes = [
     path: "/register",
     name: "Register",
     component: () => import("@/components/Register/Register.vue"),
+    beforeEnter(to, from, next) {
+      if (!store.getters.isAuthenticated) {
+        next();
+      } else {
+        next("/");
+      }
+    },
     meta: {
       layout: "AuthLayout",
     },

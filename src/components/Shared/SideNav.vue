@@ -21,7 +21,7 @@
     <v-spacer></v-spacer>
     <template v-slot:append>
       <div class="pa-2">
-        <v-btn outlined block
+        <v-btn outlined block @click="logout()"
           ><v-icon left>mdi-logout-variant </v-icon> Logout
         </v-btn>
       </div>
@@ -58,6 +58,11 @@ export default {
       set() {
         this.$store.commit("changeDrawer");
       },
+    },
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch("logout");
     },
   },
 };

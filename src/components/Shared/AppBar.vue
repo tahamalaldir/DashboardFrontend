@@ -4,7 +4,9 @@
 
     <v-toolbar-title v-text="$route.name" />
     <v-spacer></v-spacer>
-    <p class="my-auto mx-2">Hoşgeldin,Taha</p>
+    <p class="my-auto mx-2">
+      Hoşgeldin,{{ userData.name + " " + userData.lastname }}
+    </p>
     <v-btn icon @click="toggleDarkMode()"
       ><v-icon>mdi-brightness-4</v-icon></v-btn
     >
@@ -17,6 +19,13 @@ export default {
     ...mapMutations(["changeDrawer"]),
     toggleDarkMode() {
       this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
+    },
+  },
+  computed: {
+    userData: {
+      get() {
+        return this.$store.getters.getUserData;
+      },
     },
   },
 };
