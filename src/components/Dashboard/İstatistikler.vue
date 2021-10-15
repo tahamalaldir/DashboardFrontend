@@ -3,7 +3,7 @@
     <v-col class="mx-auto" cols="2">
       <v-card class="text-center" color="#0D7377" dark>
         <h4 class="pa-4">Ciro</h4>
-        <h5 class="pa-4 pt-0">{{ ciro }}</h5>
+        <h5 class="pa-4 pt-0">{{ totalPrice }}</h5>
       </v-card>
     </v-col>
     <v-col class="mx-auto" cols="2">
@@ -24,11 +24,7 @@
 <script>
 export default {
   data() {
-    return {
-      ciro: "456465",
-      urunAdedi: "456465",
-      musteriAdedi: "456465",
-    };
+    return {};
   },
   computed: {
     product: {
@@ -39,6 +35,20 @@ export default {
     customer: {
       get() {
         return this.$store.getters.getCustomers;
+      },
+    },
+    sales: {
+      get() {
+        return this.$store.getters.getSales;
+      },
+    },
+    totalPrice: {
+      get() {
+        let total = 0;
+        for (let i = 0; i < this.sales.length; i++) {
+          total += parseInt(this.sales[i].totalPrice);
+        }
+        return total;
       },
     },
   },
