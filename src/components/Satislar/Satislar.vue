@@ -10,7 +10,7 @@
         <v-toolbar flat>
           <v-divider class="mx-4" inset vertical></v-divider>
           <v-spacer></v-spacer>
-          <v-dialog v-model="dialog" max-width="500px">
+          <v-dialog v-model="dialog" max-width="750px">
             <template v-slot:activator="{ on, attrs }">
               <v-btn color="dark" dark class="mb-2" v-bind="attrs" v-on="on">
                 Yeni Satış
@@ -25,16 +25,22 @@
                 <v-container>
                   <v-row>
                     <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="editedItem.name"
-                        label="Ürün Ad"
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="editedItem.price"
-                        label="Fiyat"
-                      ></v-text-field>
+                      <v-radio-group v-model="editedItem.customersGroup">
+                        <v-radio
+                          v-for="n in customers"
+                          :key="n.id"
+                          :label="`${n.name}`"
+                          :value="n"
+                        ></v-radio> </v-radio-group></v-col
+                    ><v-col cols="12" sm="6" md="4">
+                      <v-radio-group v-model="editedItem.productsGroup">
+                        <v-radio
+                          v-for="n in products"
+                          :key="n.id"
+                          :label="`${n.name}`"
+                          :value="n"
+                        ></v-radio>
+                      </v-radio-group>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
@@ -103,14 +109,16 @@ export default {
     ],
     editedIndex: -1,
     editedItem: {
-      name: "",
-      price: 0,
+      customersGroup: 1,
+      productsGroup: 1,
       custom: 0,
+      id: 1,
     },
     defaultItem: {
-      name: "",
-      price: 0,
+      customersGroup: 1,
+      productsGroup: 1,
       custom: 0,
+      id: 1,
     },
   }),
 
@@ -197,21 +205,29 @@ export default {
     },
 
     save() {
+      let data = {
+        productId: this.editedItem.productsGroup.id,
+        customerId: this.editedItem.customersGroup.id,
+        custom: this.editedItem.custom,
+      };
       if (this.editedIndex > -1) {
+        data = {
+          id: this.editedItem.id,
+          productId: this.editedItem.productsGroup.id,
+          customerId: this.editedItem.customersGroup.id,
+          custom: this.editedItem.custom,
+        };
         axios
-          .put(
-            `http://localhost:8080/api/sales/${this.editedItem.id}`,
-            this.editedItem,
-            {
-              headers: { Authorization: `Bearer ${this.token}` },
-            }
-          )
-          .then(() => {
+          .put(`http://localhost:8080/api/sales/${this.editedItem.id}`, data, {
+            headers: { Authorization: `Bearer ${this.token}` },
+          })
+          .then((res) => {
+            console.log(res);
             this.$store.dispatch("getSales");
           });
       } else {
         axios
-          .post("http://localhost:8080/api/sales/", this.editedItem, {
+          .post("http://localhost:8080/api/sales/", data, {
             headers: { Authorization: `Bearer ${this.token}` },
           })
           .then(() => {
