@@ -173,8 +173,11 @@ export default {
     deleteItem(item) {
       this.editedIndex = this.sales.indexOf(item);
       this.editedItem = Object.assign({}, item);
+      let data = {
+        id: item.id,
+      };
       axios
-        .delete(`http://localhost:8080/api/sales/${item.id}`, {
+        .post(`https://localhost:44397/api/sales/delete`, data, {
           headers: { Authorization: `Bearer ${this.token}` },
         })
         .then(() => {
@@ -218,7 +221,7 @@ export default {
           custom: this.editedItem.custom,
         };
         axios
-          .put(`http://localhost:8080/api/sales/${this.editedItem.id}`, data, {
+          .post(`https://localhost:44397/api/sales/update`, data, {
             headers: { Authorization: `Bearer ${this.token}` },
           })
           .then((res) => {
@@ -227,13 +230,14 @@ export default {
           });
       } else {
         axios
-          .post("http://localhost:8080/api/sales/", data, {
+          .post("https://localhost:44397/api/sales/add", data, {
             headers: { Authorization: `Bearer ${this.token}` },
           })
           .then(() => {
             this.$store.dispatch("getSales");
           });
       }
+      this.editedItem = {};
       this.close();
     },
   },

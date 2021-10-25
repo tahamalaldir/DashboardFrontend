@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import router from "../router";
 import axios from "axios";
+import Swal from "sweetalert2";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -57,24 +58,53 @@ export default new Vuex.Store({
       }
     },
     login({ commit, dispatch }, data) {
-      axios.post("http://localhost:8080/api/auth/login", data).then((res) => {
-        if (res.status === 200) {
-          localStorage.setItem("token", res.data.token);
-          localStorage.setItem("userId", res.data.id);
-          commit("setToken", res.data.token);
-          commit("setUserData", res.data);
-          dispatch("getAllData");
-          alert("Giriş Başarılı...");
-          router.push("/");
-        } else {
-          alert("Giriş Başarısız...");
-        }
-      });
+      return axios
+        .post("https://localhost:44397/api/auth/login", data)
+        .then((res) => {
+          if (res.status === 200) {
+            localStorage.setItem("token", res.data.token);
+            localStorage.setItem("userId", res.data.id);
+            commit("setToken", res.data.token);
+            commit("setUserData", res.data);
+            dispatch("getAllData");
+            const Toast = Swal.mixin({
+              toast: true,
+              position: "top-end",
+              showConfirmButton: false,
+              timer: 3000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.addEventListener("mouseenter", Swal.stopTimer);
+                toast.addEventListener("mouseleave", Swal.resumeTimer);
+              },
+            });
+            Toast.fire({
+              icon: "success",
+              title: "Giriş başarılı",
+            });
+            router.push("/");
+          }
+        })
+        .catch(() => alert("Kullanıcı hatalı"));
     },
     logout({ commit }) {
       commit("clearToken");
       localStorage.removeItem("token");
-      alert("Çıkış başarılı...");
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener("mouseenter", Swal.stopTimer);
+          toast.addEventListener("mouseleave", Swal.resumeTimer);
+        },
+      });
+      Toast.fire({
+        icon: "success",
+        title: "Çıkış başarılı",
+      });
       router.push("/login");
     },
     getAllData({ dispatch }) {
@@ -87,7 +117,7 @@ export default new Vuex.Store({
     getById({ commit, state }) {
       let id = localStorage.getItem("userId");
       return axios
-        .get(`http://localhost:8080/api/users/${id}`, {
+        .get(`https://localhost:44397/api/users/getbyid?userId=${id}`, {
           headers: { Authorization: `Bearer ${state.token}` },
         })
         .then((res) => {
@@ -96,7 +126,7 @@ export default new Vuex.Store({
     },
     getUsers({ commit, state }) {
       axios
-        .get("http://localhost:8080/api/users", {
+        .get("https://localhost:44397/api/users/getall", {
           headers: { Authorization: `Bearer ${state.token}` },
         })
         .then((res) => {
@@ -105,7 +135,7 @@ export default new Vuex.Store({
     },
     getProducts({ commit, state }) {
       axios
-        .get("http://localhost:8080/api/products", {
+        .get("https://localhost:44397/api/products/getall", {
           headers: { Authorization: `Bearer ${state.token}` },
         })
         .then((res) => {
@@ -114,7 +144,7 @@ export default new Vuex.Store({
     },
     getCustomers({ commit, state }) {
       axios
-        .get("http://localhost:8080/api/customers", {
+        .get("https://localhost:44397/api/customers/getall", {
           headers: { Authorization: `Bearer ${state.token}` },
         })
         .then((res) => {
@@ -123,7 +153,7 @@ export default new Vuex.Store({
     },
     getSales({ commit, state }) {
       axios
-        .get("http://localhost:8080/api/sales", {
+        .get("https://localhost:44397/api/sales/getall", {
           headers: { Authorization: `Bearer ${state.token}` },
         })
         .then((res) => {

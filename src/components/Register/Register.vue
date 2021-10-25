@@ -102,19 +102,16 @@ export default {
     register() {
       if (this.valid) {
         let data = {
-          name: this.personelData.name,
+          firstname: this.personelData.name,
           lastname: this.personelData.lastname,
           password: this.personelData.password,
           email: this.personelData.email,
-          isApproved: false,
-          roleId: 2,
         };
         axios
-          .post("http://localhost:8080/api/auth/register", data)
+          .post("https://localhost:44397/api/auth/register", data)
           .then((res) => {
-            if (res.status === 201) {
-              console.log(res);
-              alert("Kayıt Başarılı...");
+            if (res.status === 200) {
+              alert(res.data);
               this.$router.push("/login");
             } else {
               alert("Kayıt Başarısız...");

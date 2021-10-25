@@ -25,7 +25,7 @@
       ></v-text-field>
 
       <v-select
-        v-if="this.$store.state.userData.role.id === 3"
+        v-if="this.$store.state.userData.role.id === 1"
         color="dark"
         v-model="select"
         :items="items"
@@ -88,11 +88,11 @@ export default {
       if (this.valid) {
         let roleN = 2;
         if (this.select === "Admin") {
-          roleN = 1;
-        } else if (this.select === "User") {
           roleN = 2;
-        } else if (this.select === "Super Admin") {
+        } else if (this.select === "User") {
           roleN = 3;
+        } else if (this.select === "Super Admin") {
+          roleN = 1;
         }
         let data = {
           id: this.userData.id,
@@ -103,7 +103,7 @@ export default {
           roleId: roleN,
         };
         axios
-          .put(`http://localhost:8080/api/users/${this.userData.id}`, data, {
+          .post(`https://localhost:44397/api/users/update`, data, {
             headers: { Authorization: `Bearer ${this.$store.state.token}` },
           })
           .then(() => {

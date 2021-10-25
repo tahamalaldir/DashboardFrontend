@@ -149,8 +149,11 @@ export default {
     deleteItem(item) {
       this.editedIndex = this.products.indexOf(item);
       this.editedItem = Object.assign({}, item);
+      let data = {
+        id: item.id,
+      };
       axios
-        .delete(`http://localhost:8080/api/products/${item.id}`, {
+        .post(`https://localhost:44397/api/products/delete`, data, {
           headers: { Authorization: `Bearer ${this.token}` },
         })
         .then(() => {
@@ -183,8 +186,8 @@ export default {
     save() {
       if (this.editedIndex > -1) {
         axios
-          .put(
-            `http://localhost:8080/api/products/${this.editedItem.id}`,
+          .post(
+            `https://localhost:44397/api/products/update`,
             this.editedItem,
             {
               headers: { Authorization: `Bearer ${this.token}` },
@@ -195,7 +198,7 @@ export default {
           });
       } else {
         axios
-          .post("http://localhost:8080/api/products/", this.editedItem, {
+          .post("https://localhost:44397/api/products/add", this.editedItem, {
             headers: { Authorization: `Bearer ${this.token}` },
           })
           .then(() => {

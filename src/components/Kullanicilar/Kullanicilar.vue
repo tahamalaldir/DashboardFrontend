@@ -66,8 +66,11 @@ export default {
   },
   methods: {
     userDelete(id) {
+      let data = {
+        id: id,
+      };
       axios
-        .delete(`http://localhost:8080/api/users/${id}`, {
+        .post(`https://localhost:44397/api/users/delete`, data, {
           headers: { Authorization: `Bearer ${this.token}` },
         })
         .then(() => {
@@ -76,7 +79,7 @@ export default {
     },
     userUpdate(id) {
       axios
-        .get(`http://localhost:8080/api/users/${id}`, {
+        .get(`https://localhost:44397/api/users/getbyid?userId=${id}`, {
           headers: { Authorization: `Bearer ${this.token}` },
         })
         .then((res) => {
