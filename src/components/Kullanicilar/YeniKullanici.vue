@@ -108,6 +108,7 @@ export default {
           })
           .then(() => {
             this.$store.dispatch("getUsers");
+            this.$store.dispatch("alert");
             this.$router.push("/kullanicilar");
           });
       }

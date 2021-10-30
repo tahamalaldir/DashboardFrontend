@@ -6,20 +6,7 @@ export default {
   data() {
     return {
       chartData: {
-        labels: [
-          "2015-01",
-          "2015-02",
-          "2015-03",
-          "2015-04",
-          "2015-05",
-          "2015-06",
-          "2015-07",
-          "2015-08",
-          "2015-09",
-          "2015-10",
-          "2015-11",
-          "2015-12",
-        ],
+        labels: ["2015-01", "2015-01", "2015-01", "2015-01", "2015-01"],
         datasets: [
           {
             label: "Bar Chart",
@@ -53,7 +40,7 @@ export default {
               "rgba(255, 159, 64, 1)",
             ],
             pointBorderColor: "#2554FF",
-            data: [12, 19, 3, 5, 2, 3, 20, 3, 5, 6, 2, 1],
+            data: [10, 1, 1, 1, 1, 1],
           },
         ],
       },
@@ -85,8 +72,25 @@ export default {
       },
     };
   },
+  created() {
+    console.log(this.$store.getters.getSales);
+  },
   mounted() {
     this.renderChart(this.chartData, this.options);
+  },
+  methods: {
+    getMonth() {
+      // //Get the currentYear and the currentMonth
+      // (currentMonth = new Date().getMonth() + 1),
+      //   (currentYear = new Date().getFullYear()),
+      //   //Get the year and month from the iterated date
+      //   (let[(year, month)] = e.date.split("-"));
+      // //Then filter the dates
+      // events = array.filter((e) => {
+      //   var [year, month] = e.date.split("-"); // Or, var month = e.date.split('-')[1];
+      //   return currentMonth === +month && currentYear == year;
+      // });
+    },
   },
 };
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <v-row class="justify-center my-auto">
+  <v-row class="justify-center pt-16 mt-16">
     <v-col cols="12" md="4">
       <v-card
         elevation="16"

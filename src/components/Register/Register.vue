@@ -1,5 +1,5 @@
 <template>
-  <v-row class="justify-center">
+  <v-row class="justify-center pt-16 mt-16">
     <v-col cols="12" md="5">
       <v-card
         elevation="16"
@@ -109,14 +109,24 @@ export default {
         };
         axios
           .post("https://localhost:44397/api/auth/register", data)
+
           .then((res) => {
+            console.log(res);
             if (res.status === 200) {
-              alert(res.data);
+              this.$swal.fire({
+                icon: "success",
+                text: res.data,
+              });
               this.$router.push("/login");
-            } else {
-              alert("Kayıt Başarısız...");
             }
-          });
+          })
+          .catch(() =>
+            this.$swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Kullanıcı mevcut veya başka bir hata oluştu",
+            })
+          );
       }
     },
   },

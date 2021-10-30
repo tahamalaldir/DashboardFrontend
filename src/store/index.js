@@ -85,7 +85,13 @@ export default new Vuex.Store({
             router.push("/");
           }
         })
-        .catch(() => alert("Kullanıcı hatalı"));
+        .catch(() =>
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Kullanıcı adı veya şifre hatalı",
+          })
+        );
     },
     logout({ commit }) {
       commit("clearToken");
@@ -106,6 +112,12 @@ export default new Vuex.Store({
         title: "Çıkış başarılı",
       });
       router.push("/login");
+    },
+    alert() {
+      Swal.fire({
+        icon: "success",
+        text: "Işleminiz başarıyla tamamlanmıştır.",
+      });
     },
     getAllData({ dispatch }) {
       dispatch("getCustomers");

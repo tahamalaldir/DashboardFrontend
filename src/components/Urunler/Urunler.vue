@@ -27,18 +27,21 @@
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
                         v-model="editedItem.name"
+                        color="dark"
                         label="Ürün Ad"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
                         v-model="editedItem.price"
+                        color="dark"
                         label="Fiyat"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
                         v-model="editedItem.custom"
+                        color="dark"
                         label="Adet"
                       ></v-text-field>
                     </v-col>
@@ -48,27 +51,8 @@
 
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="close">
-                  Cancel
-                </v-btn>
-                <v-btn color="blue darken-1" text @click="save()"> Save </v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
-          <v-dialog v-model="dialogDelete" max-width="500px">
-            <v-card>
-              <v-card-title class="text-h5"
-                >Are you sure you want to delete this item?</v-card-title
-              >
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="closeDelete"
-                  >Cancel</v-btn
-                >
-                <v-btn color="blue darken-1" text @click="deleteItemConfirm"
-                  >OK</v-btn
-                >
-                <v-spacer></v-spacer>
+                <v-btn color="dark" text @click="close"> Cancel </v-btn>
+                <v-btn color="dark" outlined @click="save()"> Save </v-btn>
               </v-card-actions>
             </v-card>
           </v-dialog>
@@ -157,9 +141,9 @@ export default {
           headers: { Authorization: `Bearer ${this.token}` },
         })
         .then(() => {
+          this.$store.dispatch("alert");
           this.$store.dispatch("getProducts");
         });
-      // this.dialogDelete = true;
     },
 
     deleteItemConfirm() {
@@ -182,7 +166,6 @@ export default {
         this.editedIndex = -1;
       });
     },
-
     save() {
       if (this.editedIndex > -1) {
         axios
@@ -195,6 +178,7 @@ export default {
           )
           .then(() => {
             this.$store.dispatch("getProducts");
+            this.$store.dispatch("alert");
           });
       } else {
         axios
@@ -203,6 +187,7 @@ export default {
           })
           .then(() => {
             this.$store.dispatch("getProducts");
+            this.$store.dispatch("alert");
           });
       }
       this.close();

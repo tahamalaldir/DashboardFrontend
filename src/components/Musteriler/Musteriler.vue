@@ -24,15 +24,17 @@
               <v-card-text>
                 <v-container>
                   <v-row>
-                    <v-col cols="12" sm="6" md="4">
+                    <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.name"
+                        color="dark"
                         label="Ad"
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" sm="6" md="4">
+                    <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.lastname"
+                        color="dark"
                         label="Soyad"
                       ></v-text-field>
                     </v-col>
@@ -42,10 +44,8 @@
 
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="close">
-                  Cancel
-                </v-btn>
-                <v-btn color="blue darken-1" text @click="save()"> Save </v-btn>
+                <v-btn color="dark" text @click="close"> Cancel </v-btn>
+                <v-btn color="dark" outlined @click="save()"> Save </v-btn>
               </v-card-actions>
             </v-card>
           </v-dialog>
@@ -131,9 +131,9 @@ export default {
           headers: { Authorization: `Bearer ${this.token}` },
         })
         .then(() => {
+          this.$store.dispatch("alert");
           this.$store.dispatch("getCustomers");
         });
-      // this.dialogDelete = true;
     },
 
     deleteItemConfirm() {
@@ -168,6 +168,7 @@ export default {
             }
           )
           .then(() => {
+            this.$store.dispatch("alert");
             this.editedItem = {};
             this.$store.dispatch("getCustomers");
           });
@@ -177,6 +178,7 @@ export default {
             headers: { Authorization: `Bearer ${this.token}` },
           })
           .then(() => {
+            this.$store.dispatch("alert");
             this.editedItem = {};
             this.$store.dispatch("getCustomers");
           });
